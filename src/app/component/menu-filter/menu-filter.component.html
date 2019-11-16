@@ -1,0 +1,35 @@
+<div class="container mt-3 p-4">
+    <div class="input-group mb-3">
+        <form>
+                <input #criteria type="text" class="form-control" (input)="updateCriteria(criteria.value)">
+        </form>
+      
+        <div class="input-group-append">
+          <span class="input-group-text">Search</span>
+        </div>
+      </div>
+
+      <div class="content-container w-25 mr-auto heroes" [@filterAnimation]="totalMockSiteData" (clickOutside)="onClickedOutside($event)">
+        <p-scrollPanel [style]="{width: '100%', height: '500px'}"  >
+           
+            <div *ngFor="let data of mockSiteData" class="content_container d-flex w-100 mb-3 p-3 hero" (click)="showModal($event); " >
+                <div class="mr-2">
+                    {{data.id}}
+                </div>
+                <div>
+                    {{data.siteName}}
+                </div>
+            </div>
+        </p-scrollPanel>
+      </div>
+    
+      
+        <div #customModel class="content-model-container" style="width:150px;">
+          <p-scrollPanel [style]="{width: '100%', height: '100px'}">
+            <div class="d-flex p-3 w-100" *ngFor="let submenu of subMenuData">
+              <div>{{submenu.value}}</div>
+            </div>
+          </p-scrollPanel>
+           
+        </div>
+</div>
