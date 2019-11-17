@@ -49,16 +49,16 @@ export class MenuFilterComponent implements OnInit{
   @HostBinding('@pageAnimations')
   public animatePage = true;
   mockData =[
-    { id: 11, siteName: 'Site1' },
-    { id: 12, siteName: 'Site10' },
-    { id: 13, siteName: 'Site9' },
-    { id: 14, siteName: 'Site8' },
-    { id: 15, siteName: 'Site7' },
-    { id: 16, siteName: 'beeta area' },
-    { id: 17, siteName: 'Site5' },
-    { id: 18, siteName: 'Site4' },
-    { id: 19, siteName: 'Site3' },
-    { id: 20, siteName: 'alpha street' }
+    { id: 11, siteName: 'Site1', status:false },
+    { id: 12, siteName: 'Site10', status:false  },
+    { id: 13, siteName: 'Site9', status:false },
+    { id: 14, siteName: 'Site8', status:false },
+    { id: 15, siteName: 'Site7', status:false },
+    { id: 16, siteName: 'beeta area', status:false },
+    { id: 17, siteName: 'Site5', status:false },
+    { id: 18, siteName: 'Site4', status:false },
+    { id: 19, siteName: 'Site3', status:false },
+    { id: 20, siteName: 'alpha street', status:false }
   ];
 
   subMenuData = [
@@ -78,30 +78,24 @@ export class MenuFilterComponent implements OnInit{
   }
   @ViewChild('customModel', {static: false}) el:ElementRef;
 
-  //displayCustomModal = false;
+  displayCustomModal = false;
 
   @HostListener('document:click', ['$event']) onDocumentClick(event) {
-    
-    let htmlElement =  this.el && this.el.nativeElement as HTMLElement;
-    htmlElement.style.opacity = "0";
+    this.displayCustomModal = false;
+    this.el && this.el.nativeElement as HTMLElement;
+
+    this.mockData.forEach(res=> res.status = false);
   }
   
   constructor() { }
 
   ngOnInit() {
     this._mockSiteData = this.mockData;
-
-      this.items = [
-          {label: 'New'},
-          {label: 'Open'},
-          {label: 'Undo'}
-      ];
   }
 
   updateCriteria(searchCriteria){
-    console.log("actual", searchCriteria);
-    searchCriteria = searchCriteria ? searchCriteria.trim() : '';
 
+    searchCriteria = searchCriteria ? searchCriteria.trim() : '';
     this._mockSiteData = this.mockData.filter(dataRes => dataRes.siteName.toLowerCase().includes(searchCriteria.toLowerCase()));
    
     const newTotal = this.mockSiteData.length;
@@ -114,19 +108,34 @@ export class MenuFilterComponent implements OnInit{
   }
 
   showModal(e){
+    this.displayCustomModal = true;
+
     let htmlElement =  this.el && this.el.nativeElement as HTMLElement;
     let spotX = e.pageX - e.offsetX;
     let spotY = e.pageY - e.offsetY;
 
     htmlElement.style.top = spotY + 55 +"px" ;
-    htmlElement.style.opacity = "1"; 
-
+   
     e.stopPropagation();
   }
 
   onClickedOutside(e){
     let htmlElement =  this.el && this.el.nativeElement as HTMLElement;
     htmlElement.style.opacity = "0"; 
+  }
+  
+  clickData(id, status){
+  
+   this.displayCustomModal =! status;
+    this.mockData.forEach(res=> {
+      if(res.id != id){
+        res.status = false;
+      }else{
+         res.status =! status;
+      }
+     
+    });
+
   }
 
 
