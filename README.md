@@ -1,6 +1,8 @@
-# AngularMenu
+# Angular Custom Menu With SubMenu
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.14.
+
+**See the [Demo](https://raheemmohamed.github.io/angular-filter-and-custom-menu-with-submenu/)** 
 
 ## Development server
 
