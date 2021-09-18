@@ -5,7 +5,7 @@ tasks:
     command: echo 'start script'
 
   - name: 'Terminal 2'
-    init: npm install,
+    init: npm install
     command: ng serve
 
 
